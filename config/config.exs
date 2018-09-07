@@ -2,29 +2,15 @@
 # and its dependencies with the aid of the Mix.Config module.
 use Mix.Config
 
-# This configuration is loaded before any dependency and is restricted
-# to this project. If another project depends on this project, this
-# file won't be loaded nor affect the parent project. For this reason,
-# if you want to provide default values for your application for
-# 3rd-party users, it should be done in your "mix.exs" file.
 
-# You can configure your application as:
-#
-#     config :ex_gun, key: :value
-#
-# and access this configuration in your application as:
-#
-#     Application.get_env(:ex_gun, :key)
-#
-# You can also configure a 3rd-party app:
-#
-#     config :logger, level: :info
-#
 
-# It is also possible to import configuration files, relative to this
-# directory. For example, you can emulate configuration per environment
-# by uncommenting the line below and defining dev.exs, test.exs and such.
-# Configuration from the imported file will override the ones defined
-# here (which is why it is important to import them last).
-#
-#     import_config "#{Mix.env}.exs"
+# Mailgun API Credentials
+config :ex_gun, :mailgun,
+  base_url: "https://api.mailgun.net/v3",
+  domain: "sandbox12eda3e8d240484185fda3e4127954d7.mailgun.org",
+  api_key: "key-a1101b66aa1e3e425296170c2bf81f7d"
+
+
+
+# import_config "#{Mix.env}.exs"
+
