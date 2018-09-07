@@ -54,9 +54,9 @@ defmodule ExGun.Client do
 
 
 
-  # Raise Error
+  # Handle unspecified parameters
   def send_email(_term) do
-    raise "Invalid Parameters specified for Sending Email"
+    {:error, "Required Parameters Missing"}
   end
 
 

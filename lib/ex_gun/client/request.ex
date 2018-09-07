@@ -59,13 +59,7 @@ defmodule ExGun.Client.Request do
   """
   def handle_response({:ok, %{status_code: code, body: body}})
   when code >= 200 and code < 300 do
-    case parse_body(body) do
-      %{error: %{message: message}} ->
-        {:error, {:mailgun, message}}
-
-      body ->
-        {:ok, body}
-    end
+    {:ok, parse_body(body)}
   end
 
   def handle_response({:ok, %{status_code: code}}) do
