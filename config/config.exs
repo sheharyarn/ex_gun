@@ -7,8 +7,8 @@ use Mix.Config
 # Mailgun API Credentials
 config :ex_gun, :mailgun,
   base_url: "https://api.mailgun.net/v3",
-  domain: "sandbox12eda3e8d240484185fda3e4127954d7.mailgun.org",
-  api_key: "key-a1101b66aa1e3e425296170c2bf81f7d"
+  api_key:  System.get_env("EXGUN_MAILGUN_KEY"),
+  domain:   System.get_env("EXGUN_MAILGUN_DOMAIN")
 
 
 

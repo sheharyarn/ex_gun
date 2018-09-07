@@ -1,0 +1,5 @@
+<h3>Hi <%= name %>!</h3>
+
+<p>
+  Welcome to the website!
+</p>
