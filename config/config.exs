@@ -11,6 +11,10 @@ config :ex_gun, :mailgun,
   domain:   System.get_env("EXGUN_MAILGUN_DOMAIN")
 
 
+# Web Server Configs
+config :ex_gun, :web,
+  port: (System.get_env("PORT") || 4000)
+
 
 # import_config "#{Mix.env}.exs"
 

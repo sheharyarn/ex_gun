@@ -11,13 +11,13 @@ defmodule ExGun.Client.Template do
     template = Path.join(@root_dir, "#{name}.html.eex")
 
     case File.exists?(template) do
-      true  -> EEx.eval_file(template, bindings)
-      false -> raise "Template '#{name}.html.eex' does not exist"
+      true  -> {:ok, EEx.eval_file(template, bindings)}
+      false -> {:error, "Template '#{name}.html.eex' does not exist"}
     end
 
   rescue
     CompileError ->
-      raise "Required Attribute Bindings not specified"
+      {:error, "Required Attribute Bindings not specified for Template '#{name}'"}
   end
 
 end

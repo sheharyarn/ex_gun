@@ -25,8 +25,11 @@ defmodule ExGun.MixProject do
   # Dependencies
   defp deps do
     [
-      {:httpoison, "~> 1.2.0"},
-      {:jason,     "~> 1.1.0"},
+      {:httpoison,     "~> 1.2.0"},
+      {:jason,         "~> 1.1.0"},
+      {:cowboy,        "~> 2.4.0"},
+      {:plug,          "~> 1.6.2"},
+      {:better_params, "~> 0.5.0"},
     ]
   end
 end

@@ -62,8 +62,8 @@ defmodule ExGun.Client.Request do
     {:ok, parse_body(body)}
   end
 
-  def handle_response({:ok, %{status_code: code}}) do
-    {:error, {:status_code, code}}
+  def handle_response({:ok, %{status_code: code, body: body}}) do
+    {:error, {:mailgun, build_mailgun_error(code, body)}}
   end
 
   def handle_response({:error, %{reason: reason}}) do
@@ -84,10 +84,19 @@ defmodule ExGun.Client.Request do
 
 
   # Parse a JSON response body
-  defp parse_body(binary) do
+  def parse_body(binary) do
     binary
     |> Jason.decode!
     |> symbolize
+  end
+
+
+  # Build Mailgun Error
+  defp build_mailgun_error(code, body) do
+    %{
+      status: code,
+      message: parse_body(body)[:message],
+    }
   end
 
 

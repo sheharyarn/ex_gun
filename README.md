@@ -14,6 +14,10 @@ $ export EXGUN_MAILGUN_KEY="<YOUR_API_KEY>"
 $ export EXGUN_MAILGUN_DOMAIN="<YOUR_DOMAIN>"
 ```
 
+<br/>
+
+
+
 ## Getting Started
 
 ```bash
@@ -21,6 +25,9 @@ $ mix deps.get
 $ mix compile
 $ iex -S mix
 ```
+
+<br/>
+
 
 
 
@@ -67,32 +74,81 @@ You need to pass a map with at least three params to send a templated email:
 
 ```elixir
 # Example: Template with no attributes
-
 ExGun.Client.send_email(%{
   to: "authorized@example.com",
   subject: "No Attrs",
   template: "no_attrs",
 })
-```
 
-```elixir
+
 # Example: Welcome Template with name attribute
-
 ExGun.Client.send_email(%{
   to: "authorized@example.com",
   subject: "Welcome to ExGun!",
   template: :welcome,
   attributes: %{ name: "John" },
 })
-```
 
-```elixir
+
 # Example: Password Reset Template with name and link attributes
-
 ExGun.Client.send_email(%{
   to: "authorized@example.com",
   subject: "Reset Your Password",
   template: :password_reset,
   attributes: %{ name: "Joyce", link: "http://example.com/password/reset" },
 })
+```
+
+
+**NOTE:** If you absolutely want to use JSON, use `send_email_json/1`:
+
+```elixir
+ExGun.Client.send_email_json ~S({
+  "to": "authorized@example.com",
+  "subject": "Email Subject",
+  "body": "<h3>Hello!</h3>"
+})
+```
+
+<br/>
+
+
+
+## Sending Emails via API
+
+The application also starts an extremely light-weight Web Server on port `4000` that accepts JSON
+web requests to send emails. Complication authorization or a large framework like Phoenix were not
+used on purpose. Instead, it's a simple `Plug.Router` definition (`ExGun.Web.Router`) was used that
+handles these requests.
+
+
+To send a simple email via cURL:
+
+```bash
+curl http://localhost:4000/send-email \
+  -X POST \
+  -H "Content-Type: application/json" \
+  -d '{"to": "authorized@example.com", "subject": "Test from cURL", "body": "Hello!"}'
+
+# => {"id":"...","message":"Queued. Thank you."}
+```
+
+
+To send a templated email via cURL:
+
+```bash
+curl http://localhost:4000/send-email \
+  -X POST \
+  -H "Content-Type: application/json" \
+  -d '{
+    "to": "authorized@example.com",
+    "subject": "Test from cURL",
+    "template": "password_reset",
+    "attributes": {
+      "name": "John",
+      "link": "http://example.com/password/reset"
+    }
+  }'
+
+# => {"id":"...","message":"Queued. Thank you."}
 ```
