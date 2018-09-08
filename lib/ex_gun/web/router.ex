@@ -64,11 +64,11 @@ defmodule ExGun.Web.Router do
   post "/send-email" do
     case ExGun.Client.send_email(conn.params) do
       {:ok, response} ->
-        Logger.info("Email sent to Mailgun!")
+        Logger.info("[Router]: Email sent to Mailgun!")
         render_json(conn, 200, response)
 
       {:error, reason} ->
-        Logger.error("Sending Email Failed: #{inspect(reason)}")
+        Logger.error("[Router]: Sending Email Failed: #{inspect(reason)}")
         render_json(conn, 400, build_error("Could not send email. See Logs."))
     end
   end
@@ -90,7 +90,7 @@ defmodule ExGun.Web.Router do
 
   # Handle Errors
   defp handle_errors(conn, error) do
-    Logger.error("Web Request Failed:\n#{inspect(error)}")
+    Logger.error("[Router]: Web Request Failed:\n#{inspect(error)}")
     render_json(conn, conn.status, build_error("Something Went Wrong. See Logs."))
   end
 

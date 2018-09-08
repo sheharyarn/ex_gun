@@ -88,25 +88,19 @@ ExGun.Client.send_email(%{
   template: :welcome,
   attributes: %{ name: "John" },
 })
-
-
-# Example: Password Reset Template with name and link attributes
-ExGun.Client.send_email(%{
-  to: "authorized@example.com",
-  subject: "Reset Your Password",
-  template: :password_reset,
-  attributes: %{ name: "Joyce", link: "http://example.com/password/reset" },
-})
 ```
-
 
 **NOTE:** If you absolutely want to use JSON, use `send_email_json/1`:
 
 ```elixir
 ExGun.Client.send_email_json ~S({
   "to": "authorized@example.com",
-  "subject": "Email Subject",
-  "body": "<h3>Hello!</h3>"
+  "subject": "Reset Your Password",
+  "template": "password_reset",
+  "attributes": {
+    "name": "Joyce",
+    "link": "http://example.com/password/reset"
+  }
 })
 ```
 
@@ -151,4 +145,30 @@ curl http://localhost:4000/send-email \
   }'
 
 # => {"id":"...","message":"Queued. Thank you."}
+```
+
+<br/>
+
+
+
+## Sending Emails via Queue
+
+Finally, a long-running GenServer process is also started as part of the Application Supervision
+Tree. It listens to an AMQP protocol based exchange/queue (RabbitMQ in this example) and on
+receiving a payload, passes it to `ExGun.Client.send_email_json`. In case of success or failure,
+the responses are logged to the console (email jobs are not restarted on purpose).
+
+To test emails via RabbitMQ, pass it a JSON payload. You can also do that directly within the
+application:
+
+```elixir
+ExGun.Queue.enqueue ~S({
+  "to": "authorized@example.com",
+  "subject": "Reset Your Password",
+  "template": "password_reset",
+  "attributes": {
+    "name": "Joyce",
+    "link": "http://example.com/password/reset"
+  }
+})
 ```

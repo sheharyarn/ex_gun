@@ -30,6 +30,7 @@ defmodule ExGun.MixProject do
       {:cowboy,        "~> 2.4.0"},
       {:plug,          "~> 1.6.2"},
       {:better_params, "~> 0.5.0"},
+      {:amqp,          "~> 0.3.1"},
     ]
   end
 end

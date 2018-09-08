@@ -16,5 +16,12 @@ config :ex_gun, :web,
   port: (System.get_env("PORT") || 4000)
 
 
+# Mailer Queue Configs
+config :ex_gun, :queue,
+  queue_name:    "ex_gun.mailer.queue",
+  exchange_name: "ex_gun.mailer.exchange"
+
+
+
 # import_config "#{Mix.env}.exs"
 

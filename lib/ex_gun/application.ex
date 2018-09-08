@@ -7,6 +7,7 @@ defmodule ExGun.Application do
 
   def start(_type, _args) do
     children = [
+      ExGun.Queue,
       ExGun.Web.Router.spec,
     ]
 

@@ -32,6 +32,8 @@ defmodule ExGun.Client do
     params
     |> Request.parse_body
     |> send_email
+  rescue
+    Jason.DecodeError -> {:error, "Malformed JSON"}
   end
 
 
