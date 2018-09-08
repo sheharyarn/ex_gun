@@ -3,6 +3,8 @@ ExGun
 
 > Basic Mailgun API Implementation
 
+<br/>
+
 
 ## Configuration
 
@@ -111,7 +113,7 @@ ExGun.Client.send_email_json ~S({
 ## Sending Emails via API
 
 The application also starts an extremely light-weight Web Server on port `4000` that accepts JSON
-web requests to send emails. Complication authorization or a large framework like Phoenix were not
+web requests to send emails. Complicated authorization or large frameworks like Phoenix were not
 used on purpose. Instead, it's a simple `Plug.Router` definition (`ExGun.Web.Router`) was used that
 handles these requests.
 

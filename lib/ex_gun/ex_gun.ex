@@ -1,18 +1,9 @@
 defmodule ExGun do
   @moduledoc """
-  Documentation for ExGun.
+  Nothing here. See:
+
+    - ExGun.Client
+    - ExGun.Web
+    - ExGun.Queue
   """
-
-  @doc """
-  Hello world.
-
-  ## Examples
-
-      iex> ExGun.hello
-      :world
-
-  """
-  def hello do
-    :world
-  end
 end
